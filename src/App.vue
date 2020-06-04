@@ -1,55 +1,37 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
+    <v-app-bar app class="px-md-10" dark color="primary">
       <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
-
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
+        <h2>My Weather App</h2>
       </div>
-
       <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
+      <v-btn-toggle v-model="page" mandatory background-color="primary">
+        <v-btn text @click="navigateTo('/')">Home</v-btn>
+        <v-btn text @click="navigateTo('/favorites')">Favorites</v-btn>
+      </v-btn-toggle>
     </v-app-bar>
 
-    <v-content>
-      <router-view/>
+    <v-content class="main-content">
+      <router-view />
     </v-content>
   </v-app>
 </template>
 
 <script>
-
 export default {
-  name: 'App',
-
+  name: "App",
+  created() {
+    this.page = ["/", "/favorites"].indexOf(this.$route.path);
+  },
   data: () => ({
-    //
+    page: 0
   }),
+  methods: {
+    navigateTo(path) {
+      if (this.$route.path !== path) {
+        this.$router.replace(path);
+      }
+    }
+  }
 };
 </script>
