@@ -29,23 +29,23 @@ export default {
   }),
   methods: {
     getPlaces: _.debounce((context, value) => {
-      context.$store.dispatch("autocomplete", value);
+      context.$store.dispatch("homeModule/autocomplete", value);
     }, 1000)
   },
   computed: {
     place: {
       get() {
-        return this.$store.state.selectedPlace;
+        return this.$store.state.homeModule.selectedPlace;
       },
       set(place) {
-        this.$store.commit("SET_SELECTED_PLACE", place);
+        this.$store.commit("homeModule/SET_SELECTED_PLACE", place);
       }
     },
     places() {
-      return this.$store.state.places;
+      return this.$store.state.homeModule.places;
     },
     loading() {
-      return this.$store.state.loading;
+      return this.$store.state.homeModule.loading;
     }
   },
   watch: {
