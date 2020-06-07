@@ -1,35 +1,103 @@
 <template>
   <v-card raised v-if="place">
-    <v-card-title class="pa-0 secondary">
-      <span
-        class="white--text headline font-weight-bold pa-2"
-        v-text="`Weather in ${place.text}`"
-      ></span>
-      <v-spacer></v-spacer>
-      <v-btn icon @click="toggleFavorite()">
-        <v-icon v-if="favorite" color="white">star</v-icon>
-        <v-icon v-else color="white">star_outline</v-icon>
-      </v-btn>
+    <v-card-title class="pa-0 primary">
+      <v-list-item two-line dense>
+        <v-list-item-content>
+          <v-list-item-title
+            class="white--text headline font-weight-bold"
+            v-text="`Weather in ${place.text}`"
+          ></v-list-item-title>
+          <v-list-item-subtitle
+            class="subtitle-1"
+            v-text="new Date(weather.LocalObservationDateTime).toDateString()"
+          ></v-list-item-subtitle>
+        </v-list-item-content>
+        <v-list-item-action>
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on }">
+              <v-btn color="white" icon @click="toggleFavorite()" v-on="on">
+                <v-icon v-if="favorite">star</v-icon>
+                <v-icon v-else>star_outline</v-icon>
+              </v-btn>
+            </template>
+            <span
+              v-text="favorite ? 'Remove from favorites' : 'Add to favorites'"
+            ></span>
+          </v-tooltip>
+        </v-list-item-action>
+      </v-list-item>
     </v-card-title>
-    <v-divider />
 
     <v-card-text>
-      <div>
-        {{ new Date(weather.LocalObservationDateTime).toDateString() }}
-      </div>
-      <div>
-        {{ weather.WeatherText }}
-      </div>
-      <div>
-        {{ weather.Temperature.Metric.Value }}
-        {{ weather.Temperature.Metric.Unit }}
-      </div>
-      <div>
-        {{ weather.RealFeelTemperature.Metric }}
-      </div>
-      <div>
-        {{ weather }}
-      </div>
+      <v-row align="center">
+        <v-col class="text-sm-center" cols="6">
+          <v-list-item three-line dense>
+            <v-list-item-content>
+              <v-list-item-title>
+                <span
+                  class="primary--text display-3"
+                  v-text="getTemperatureText(weather.Temperature)"
+                />
+              </v-list-item-title>
+              <v-list-item-subtitle>
+                <span>Real Feel: </span>
+                <span
+                  v-text="getTemperatureText(weather.RealFeelTemperature)"
+                />
+              </v-list-item-subtitle>
+              <v-list-item-subtitle>
+                <span>Real Feel Shade: </span>
+                <span
+                  v-text="getTemperatureText(weather.RealFeelTemperatureShade)"
+                />
+              </v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+        </v-col>
+        <v-col cols="6" class="text-sm-center">
+          <v-img
+            :src="
+              `https://www.accuweather.com/images/weathericons/${weather.WeatherIcon}.svg`
+            "
+            :alt="weather.WeatherText"
+            contain
+            aspect-ratio="3"
+          ></v-img>
+          <span class="title" v-text="weather.WeatherText"></span>
+        </v-col>
+        <v-col>
+          <v-row>
+            <v-col cols="12" class="pa-0 pl-4">
+              <span>Wind: </span>
+              <span
+                v-text="
+                  `${weather.Wind.Direction.Localized} at ${weather.Wind.Speed.Metric.Value}${weather.Wind.Speed.Metric.Unit}`
+                "
+              ></span>
+            </v-col>
+            <v-col cols="12" class="pa-0 pl-4">
+              <span>WindGust: </span>
+              <span
+                v-text="
+                  `${weather.WindGust.Speed.Metric.Value}${weather.WindGust.Speed.Metric.Unit}`
+                "
+              ></span>
+            </v-col>
+            <v-col cols="12" class="pa-0 pl-4">
+              <span>Humidity: </span>
+              <span v-text="weather.Hum"></span>
+            </v-col>
+            <v-col v-if="weather.HasPrecipitation" cols="12" class="pa-0 pl-4">
+              <span>Precipitation: </span>
+              <span
+                v-text="
+                  `${weather.PrecipitationSummary.Precipitation.Metric.Value}${weather.PrecipitationSummary.Precipitation.Metric.Unit}`
+                "
+              ></span>
+            </v-col>
+          </v-row>
+        </v-col>
+      </v-row>
     </v-card-text>
   </v-card>
 </template>
@@ -57,6 +125,9 @@ export default {
         delete favorites[this.place.Key];
       }
       localStorage.setItem("favorites", JSON.stringify(favorites));
+    },
+    getTemperatureText(temperature) {
+      return `${temperature.Metric.Value}°${temperature.Metric.Unit}`;
     }
   },
   computed: {

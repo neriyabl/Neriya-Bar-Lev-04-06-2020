@@ -10,7 +10,7 @@ const opts = {
     themes: {
       light: {
         primary: colors.lightGreen.darken1,
-        secondary: colors.brown.lighten1,
+        secondary: colors.lightGreen.darken1,
         accent: colors.green.darken4
       }
     }
