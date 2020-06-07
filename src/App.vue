@@ -9,7 +9,7 @@
       </template>
 
       <div class="d-flex align-center">
-        <h2>My Weather App</h2>
+        <h2>Weather</h2>
       </div>
 
       <v-spacer></v-spacer>

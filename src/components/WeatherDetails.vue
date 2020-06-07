@@ -5,7 +5,7 @@
         <v-list-item-content>
           <v-list-item-title
             class="white--text headline font-weight-bold"
-            v-text="`Weather in ${place.text}`"
+            v-text="place.text"
           ></v-list-item-title>
           <v-list-item-subtitle
             class="subtitle-1"
@@ -30,7 +30,7 @@
 
     <v-card-text>
       <v-row align="center">
-        <v-col class="text-sm-center" cols="6">
+        <v-col class="text-center" cols="6">
           <v-list-item three-line dense>
             <v-list-item-content>
               <v-list-item-title>
@@ -52,14 +52,14 @@
             </v-list-item-content>
           </v-list-item>
         </v-col>
-        <v-col cols="6" class="text-sm-center">
+        <v-col cols="6" class="text-center">
           <v-img
             :src="
               `https://www.accuweather.com/images/weathericons/${weather.WeatherIcon}.svg`
             "
             :alt="weather.WeatherText"
             contain
-            aspect-ratio="3"
+            height="120px"
           ></v-img>
           <span class="title" v-text="weather.WeatherText"></span>
         </v-col>
@@ -110,6 +110,7 @@ export default {
   }),
   methods: {
     checkFavorite() {
+      if (!this.place) return;
       const favorites = JSON.parse(localStorage.getItem("favorites"));
       this.favorite = !!(favorites && favorites[this.place.Key]);
     },

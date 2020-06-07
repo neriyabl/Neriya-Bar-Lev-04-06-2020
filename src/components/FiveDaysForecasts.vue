@@ -1,14 +1,14 @@
 <template>
   <v-container fluid>
     <v-row dense>
-      <v-col cols="12" class="text-sm-center">
+      <v-col cols="12" class="text-center">
         <span v-text="fiveDaysForecasts.Headline.Text"></span>
       </v-col>
       <v-col
         v-for="day of fiveDaysForecasts.DailyForecasts"
         :key="day.EpochDate"
       >
-        <v-card>
+        <v-card raised>
           <v-card-title class="primary">
             <span
               class="white--text"
@@ -25,30 +25,29 @@
                   "
                   :alt="day.Day.IconPhrase"
                   contain
-                  aspect-ratio="3"
+                  height="80px"
                 ></v-img>
+                <div class="text-center mb-4">{{day.Day.IconPhrase}}</div>
+                <span
+                >Maximum: {{ day.Temperature.Maximum.Value }}°{{
+                    day.Temperature.Maximum.Unit
+                  }}</span
+                >
+
               </v-col>
-              <v-col class="pb-0">
+              <v-col cols="6">
                 <v-img
-                  class="mr-2"
+                  class="mr-3"
                   :src="
                     `https://www.accuweather.com/images/weathericons/${day.Night.Icon}.svg`
                   "
                   :alt="day.Night.IconPhrase"
                   contain
-                  aspect-ratio="3"
+                  height="80px"
                 ></v-img>
-              </v-col>
-              <v-col cols="6">
+                <div class="text-center mb-4">{{day.Night.IconPhrase}}</div>
                 <span
-                  >Maximum: {{ day.Temperature.Maximum.Value }}°{{
-                    day.Temperature.Maximum.Unit
-                  }}</span
-                >
-              </v-col>
-              <v-col>
-                <span
-                  >Minimum: {{ day.Temperature.Minimum.Value }}°{{
+                >Minimum: {{ day.Temperature.Minimum.Value }}°{{
                     day.Temperature.Minimum.Unit
                   }}</span
                 >
