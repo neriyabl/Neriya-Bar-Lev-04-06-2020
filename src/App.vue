@@ -13,8 +13,7 @@
       </div>
 
       <v-spacer></v-spacer>
-      <v-btn :outlined="page === 0" :text="page !== 0" @click="navigateTo('/')"
-      >
+      <v-btn :outlined="page === 0" :text="page !== 0" @click="navigateTo('/')">
         <v-icon left>home</v-icon>
         Home
       </v-btn>
