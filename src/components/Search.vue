@@ -52,10 +52,9 @@ export default {
     search(value) {
       this.getPlaces(this, value);
     },
-    async place(value) {
-      if (!value) return;
-      console.log(value.Key);
-    }
+    // async place(value) {
+    //   if (!value) return;
+    // }
   }
 };
 </script>

@@ -10,8 +10,8 @@ const opts = {
     themes: {
       light: {
         primary: colors.lightGreen.darken1,
-        secondary: colors.lightGreen.darken1,
-        accent: colors.green.darken4
+        secondary: colors.lightGreen.lighten5,
+        accent: colors.teal.lighten3
       }
     }
   },

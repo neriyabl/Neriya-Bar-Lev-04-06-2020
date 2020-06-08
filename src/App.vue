@@ -27,7 +27,7 @@
       </v-btn>
     </v-app-bar>
 
-    <v-content class="main-content">
+    <v-content class="main-content secondary">
       <router-view />
     </v-content>
   </v-app>
@@ -39,7 +39,7 @@ export default {
   methods: {
     navigateTo(path) {
       if (this.$route.path !== path) {
-        this.$router.replace(path);
+        this.$router.push(path);
       }
     }
   },

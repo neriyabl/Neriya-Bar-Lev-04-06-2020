@@ -3,6 +3,12 @@
     <v-row>
       <v-col
         cols="12"
+        offset-md="2"
+        md="8"
+        offset-lg="3"
+        lg="6"
+        offset-xl="4"
+        xl="4"
         v-for="[key, favorite] of Object.entries(favorites)"
         :key="key"
       >
