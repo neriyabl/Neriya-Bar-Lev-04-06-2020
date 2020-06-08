@@ -1,0 +1,3 @@
+VUE_APP_API_KEY=
+VUE_APP_WEATHER_API_BASE_URL=http://dataservice.accuweather.com/
+VUE_APP_WEATHER_API_VERSION=v1
