@@ -16,6 +16,9 @@
       </v-col>
     </v-row>
   </v-container>
+  <v-container v-else class="text-center pa-12">
+    <span class="headline">You don't have any favorite places yet...</span>
+  </v-container>
 </template>
 
 <script>
