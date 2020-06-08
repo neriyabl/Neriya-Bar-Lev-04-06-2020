@@ -1,5 +1,5 @@
 <template>
-  <v-container v-if="favorites">
+  <v-container v-if="favorites && Object.keys(favorites).length">
     <v-row>
       <v-col
         cols="12"
