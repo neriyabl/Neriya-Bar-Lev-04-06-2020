@@ -22,41 +22,27 @@
               </v-card-title>
               <v-card-text>
                 <v-row>
-                  <v-col class="pb-0" cols="6">
+                  <v-col
+                    class="pb-0"
+                    cols="6"
+                    v-for="time of ['Day', 'Night']"
+                    :key="time"
+                  >
                     <v-img
                       class="mr-2"
                       :src="
-                        `https://www.accuweather.com/images/weathericons/${day.Day.Icon}.svg`
+                        `https://www.accuweather.com/images/weathericons/${day[time].Icon}.svg`
                       "
-                      :alt="day.Day.IconPhrase"
-                      contain
-                      height="80px"
-                    ></v-img>
-                    <div class="text-center mb-4">{{ day.Day.IconPhrase }}</div>
-                    <span
-                    >Maximum: {{ day.Temperature.Maximum.Value }}°{{
-                        day.Temperature.Maximum.Unit
-                      }}</span
-                    >
-                  </v-col>
-                  <v-col cols="6">
-                    <v-img
-                      class="mr-3"
-                      :src="
-                        `https://www.accuweather.com/images/weathericons/${day.Night.Icon}.svg`
-                      "
-                      :alt="day.Night.IconPhrase"
+                      :alt="day[time].IconPhrase"
                       contain
                       height="80px"
                     ></v-img>
                     <div class="text-center mb-4">
-                      {{ day.Night.IconPhrase }}
+                      {{ day[time].IconPhrase }}
                     </div>
                     <span
-                    >Minimum: {{ day.Temperature.Minimum.Value }}°{{
-                        day.Temperature.Minimum.Unit
-                      }}</span
-                    >
+                      v-text="getExtremeTemperature(time, day.Temperature)"
+                    />
                   </v-col>
                 </v-row>
               </v-card-text>
@@ -71,6 +57,12 @@
 <script>
 export default {
   name: "FiveDaysForecasts",
+  methods: {
+    getExtremeTemperature(time, temperature) {
+      const extreme = time === "Day" ? "Maximum" : "Minimum";
+      return `${extreme}: ${temperature[extreme].Value}°${temperature[extreme].Unit}`;
+    }
+  },
   computed: {
     fiveDaysForecasts() {
       return this.$store.state.homeModule.fiveDaysForecasts;

@@ -35,10 +35,10 @@
             <v-list-item three-line dense>
               <v-list-item-content>
                 <v-list-item-title>
-                <span
-                  class="primary--text display-3"
-                  v-text="getMetricText(weather.Temperature)"
-                />
+                  <span
+                    class="primary--text display-3"
+                    v-text="getMetricText(weather.Temperature)"
+                  />
                 </v-list-item-title>
                 <v-list-item-subtitle>
                   <span>Real Feel: </span>
@@ -56,8 +56,8 @@
           <v-col cols="6" class="text-center">
             <v-img
               :src="
-              `https://www.accuweather.com/images/weathericons/${weather.WeatherIcon}.svg`
-            "
+                `https://www.accuweather.com/images/weathericons/${weather.WeatherIcon}.svg`
+              "
               :alt="weather.WeatherText"
               contain
               height="120px"
@@ -65,32 +65,41 @@
             <span class="title" v-text="weather.WeatherText"></span>
           </v-col>
           <v-col>
-            <v-row>
+            <v-row class="subtitle-1">
               <v-col cols="12" class="pa-0 pl-4">
                 <span>Wind: </span>
                 <span
                   v-text="
-                  `${weather.Wind.Direction.Localized} at ${getMetricText(
-                    weather.Wind.Speed,
-                    ' '
-                  )}`
-                "
+                    `${weather.Wind.Direction.Localized} at ${getMetricText(
+                      weather.Wind.Speed,
+                      ' '
+                    )}`
+                  "
                 ></span>
               </v-col>
               <v-col cols="12" class="pa-0 pl-4">
                 <span>WindGust: </span>
-                <span v-text="getMetricText(weather.WindGust.Speed, ' ')"></span>
+                <span
+                  v-text="getMetricText(weather.WindGust.Speed, ' ')"
+                ></span>
               </v-col>
               <v-col cols="12" class="pa-0 pl-4">
                 <span>Humidity: </span>
                 <span v-text="`${weather.RelativeHumidity} %`"></span>
               </v-col>
-              <v-col v-if="weather.HasPrecipitation" cols="12" class="pa-0 pl-4">
+              <v-col
+                v-if="weather.HasPrecipitation"
+                cols="12"
+                class="pa-0 pl-4"
+              >
                 <span>Precipitation: </span>
                 <span
                   v-text="
-                  getMetricText(weather.PrecipitationSummary.Precipitation, ' ')
-                "
+                    getMetricText(
+                      weather.PrecipitationSummary.Precipitation,
+                      ' '
+                    )
+                  "
                 ></span>
               </v-col>
             </v-row>
@@ -131,8 +140,8 @@ export default {
       }
       localStorage.setItem("favorites", JSON.stringify(favorites));
     },
-    getMetricText(temperature, separator = "°") {
-      return `${temperature.Metric.Value}${separator}${temperature.Metric.Unit}`;
+    getMetricText(data, separator = "°") {
+      return `${data.Metric.Value}${separator}${data.Metric.Unit}`;
     }
   },
   computed: {

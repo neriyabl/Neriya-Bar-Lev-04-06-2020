@@ -1,16 +1,29 @@
 <template>
   <v-app>
-    <v-app-bar app dark color="primary" src="./assets/phmUaj.jpg">
+    <v-app-bar app dark color="primary" :src="require(`@/assets/${darkMode? 'night.jpg': 'day.jpg'}`)">
       <template v-slot:img="{ props }">
         <v-img
           v-bind="props"
-          gradient="to top right, rgba(19,84,122,.5), rgba(128,208,199,.8)"
+          gradient="to top right, rgba(0,80,122,.4), rgba(128,208,199,.4)"
         ></v-img>
       </template>
 
       <div class="d-flex align-center">
         <h2>Weather</h2>
       </div>
+      <v-tooltip bottom>
+        <template v-slot:activator="{ on }">
+          <v-switch
+            class="ml-4"
+            v-on="on"
+            v-model="darkMode"
+            hide-details
+            inset
+            color="white"
+          ></v-switch>
+        </template>
+        <span v-text="`${darkMode? 'Dark': 'Light'} Theme`" />
+      </v-tooltip>
 
       <v-spacer></v-spacer>
       <v-btn :outlined="page === 0" :text="page !== 0" @click="navigateTo('/')">
@@ -46,6 +59,14 @@ export default {
   computed: {
     page() {
       return ["/", "/favorites"].indexOf(this.$route.path);
+    },
+    darkMode: {
+      get() {
+        return this.$vuetify.theme.dark;
+      },
+      set(value) {
+        this.$vuetify.theme.dark = value;
+      }
     }
   }
 };

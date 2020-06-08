@@ -25,8 +25,9 @@ export default {
   components: {
     FavoriteItem
   },
-  created() {
-    this.$store.dispatch("favoritesModule/getFavorites");
+  async created() {
+    await this.$store.dispatch("favoritesModule/getFavorites");
+    await this.$store.dispatch("favoritesModule/getPartialFavoritesWeather");
   },
   computed: {
     favorites() {

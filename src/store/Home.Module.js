@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export const homeModule = {
   namespaced: true,
   state: {
@@ -36,8 +38,7 @@ export const homeModule = {
       }
     ],
     fiveDaysForecasts: null,
-    currentWeather: null,
-    loading: false
+    currentWeather: null
   },
   mutations: {
     SET_PLACES: (state, places) => (state.places = places),

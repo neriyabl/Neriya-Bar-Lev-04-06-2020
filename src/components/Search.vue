@@ -51,10 +51,7 @@ export default {
   watch: {
     search(value) {
       this.getPlaces(this, value);
-    },
-    // async place(value) {
-    //   if (!value) return;
-    // }
+    }
   }
 };
 </script>

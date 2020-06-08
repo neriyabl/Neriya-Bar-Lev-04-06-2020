@@ -4,14 +4,20 @@ import Vuetify from "vuetify/lib";
 import colors from "vuetify/lib/util/colors";
 
 Vue.use(Vuetify);
+const hours = new Date().getHours();
 
 const opts = {
   theme: {
+    dark: hours > 19 || hours < 5,
     themes: {
       light: {
         primary: colors.lightGreen.darken1,
         secondary: colors.lightGreen.lighten5,
-        accent: colors.teal.lighten3
+        accent: colors.teal.lighten5
+      },
+      dark: {
+        primary: colors.green.darken3,
+        accent: colors.blueGrey.darken2
       }
     }
   },
