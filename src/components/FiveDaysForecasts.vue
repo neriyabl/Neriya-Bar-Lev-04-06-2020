@@ -1,7 +1,7 @@
 <template>
   <v-container>
-    <v-row dense>
-      <v-col v-if="place" cols="12" class="text-center">
+    <v-row dense v-if="place&&fiveDaysForecasts">
+      <v-col cols="12" class="text-center">
         <span v-text="fiveDaysForecasts.Headline.Text"></span>
       </v-col>
       <v-scale-transition>

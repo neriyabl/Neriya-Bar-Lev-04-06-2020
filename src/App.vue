@@ -1,6 +1,16 @@
 <template>
   <v-app>
-    <v-app-bar app dark color="primary" :src="require(`@/assets/${darkMode? 'night.jpg': 'day.jpg'}`)">
+    <v-snackbar top v-model="siteAlert" color="error">
+      <span v-text="siteAlert" />
+      <v-btn small rounded text @click="siteAlert = ''">Close</v-btn>
+    </v-snackbar>
+
+    <v-app-bar
+      app
+      dark
+      color="primary"
+      :src="require(`@/assets/${darkMode ? 'night.jpg' : 'day.jpg'}`)"
+    >
       <template v-slot:img="{ props }">
         <v-img
           v-bind="props"
@@ -22,7 +32,7 @@
             color="white"
           ></v-switch>
         </template>
-        <span v-text="`${darkMode? 'Dark': 'Light'} Theme`" />
+        <span v-text="`${darkMode ? 'Dark' : 'Light'} Theme`" />
       </v-tooltip>
 
       <v-spacer></v-spacer>
@@ -66,6 +76,14 @@ export default {
       },
       set(value) {
         this.$vuetify.theme.dark = value;
+      }
+    },
+    siteAlert: {
+      get() {
+        return this.$store.state.siteAlert;
+      },
+      set(value) {
+        this.$store.commit("SET_SITE_ALERT", value);
       }
     }
   }
