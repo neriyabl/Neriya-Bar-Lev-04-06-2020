@@ -30,7 +30,7 @@ export default {
   methods: {
     getPlaces: _.debounce((context, value) => {
       context.$store.dispatch("homeModule/autocomplete", value);
-    }, 1000)
+    }, 600)
   },
   computed: {
     place: {

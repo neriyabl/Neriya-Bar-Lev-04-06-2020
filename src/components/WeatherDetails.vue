@@ -1,6 +1,6 @@
 <template>
   <v-expand-transition>
-    <v-card raised v-if="place" class="ma-auto">
+    <v-card raised v-if="weather && place" class="ma-auto">
       <v-card-title class="pa-0 primary">
         <v-list-item two-line dense>
           <v-list-item-content>
@@ -149,7 +149,7 @@ export default {
       return this.$store.state.homeModule.selectedPlace;
     },
     weather() {
-      return this.$store.state.homeModule.currentWeather[0];
+      return this.$store.state.homeModule.currentWeather;
     }
   },
   watch: {

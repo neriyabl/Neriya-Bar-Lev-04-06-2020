@@ -8,6 +8,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   modules: { homeModule, favoritesModule },
   state: {
-    loading: false
+    loading: false,
+    metric: true
   }
 });

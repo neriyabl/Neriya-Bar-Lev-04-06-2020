@@ -1,5 +1,5 @@
 <template>
-  <v-card raised @click="getDetails()">
+  <v-card v-if="favorite" raised @click="getDetails()">
     <v-card-text class="accent">
       <v-row align="center">
         <v-col cols="9" sm="6">
@@ -43,10 +43,9 @@ export default {
   },
   computed: {
     weather() {
-      // return this.$store.getters["favoritesModule/getWeatherByKey"](
-      //   this.favorite.Key
-      // );
-      return this.$store.state.favoritesModule.weathers[this.favorite.Key];
+      return this.$store.getters["favoritesModule/getWeatherByKey"](
+        this.favorite.Key
+      );
     }
   }
 };

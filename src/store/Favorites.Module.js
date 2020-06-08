@@ -11,8 +11,8 @@ export const favoritesModule = {
   },
   mutations: {
     SET_FAVORITES: (state, favorites) => (state.favorites = favorites),
-    SET_FAVORITE_WEATHER: (state, { key, data }) =>
-      (state.weathers = { ...state.weathers, [key]: data })
+    SET_FAVORITE_WEATHER: (state, { key, weather }) =>
+      (state.weathers = { ...state.weathers, [key]: weather })
   },
   actions: {
     getFavorites: context => {
@@ -21,37 +21,19 @@ export const favoritesModule = {
     },
     getPartialFavoritesWeather: async context => {
       for (const key of Object.keys(context.state.favorites)) {
-        const url = `${key}`;
+        const {
+          VUE_APP_WEATHER_API_BASE_URL: baseUrl,
+          VUE_APP_WEATHER_API_VERSION: version,
+          VUE_APP_API_KEY: apikey
+        } = process.env;
+        const url = `${baseUrl}currentconditions/${version}/${key}`;
         const params = {
-          apiKey: process.env.VUE_APP_API_KEY
+          apikey
         };
-        // const { data } = await axios.get(url, { params });
-        const data = {
-          LocalObservationDateTime: "2020-06-05T11:45:00+12:00",
-          EpochTime: 1591314300,
-          WeatherText: "Mostly cloudy",
-          WeatherIcon: 6,
-          HasPrecipitation: false,
-          PrecipitationType: null,
-          IsDayTime: true,
-          Temperature: {
-            Metric: {
-              Value: 9.5,
-              Unit: "C",
-              UnitType: 17
-            },
-            Imperial: {
-              Value: 49,
-              Unit: "F",
-              UnitType: 18
-            }
-          },
-          MobileLink:
-            "http://m.accuweather.com/en/nz/jerusalem/250835/current-weather/250835?lang=en-us",
-          Link:
-            "http://www.accuweather.com/en/nz/jerusalem/250835/current-weather/250835?lang=en-us"
-        };
-        context.commit("SET_FAVORITE_WEATHER", { key, data });
+        const {
+          data: [weather]
+        } = await axios.get(url, { params });
+        context.commit("SET_FAVORITE_WEATHER", { key, weather });
       }
     }
   }
