@@ -1,8 +1,8 @@
 <template>
   <v-app>
-    <v-snackbar top v-model="siteAlert" color="error">
-      <span v-text="siteAlert" />
-      <v-btn small rounded text @click="siteAlert = ''">Close</v-btn>
+    <v-snackbar top v-model="siteAlertModel" color="error">
+      <span v-text="siteAlert.text" />
+      <v-btn small rounded text @click="siteAlertModel = false">Close</v-btn>
     </v-snackbar>
 
     <v-app-bar
@@ -78,12 +78,15 @@ export default {
         this.$vuetify.theme.dark = value;
       }
     },
-    siteAlert: {
+    siteAlert() {
+      return this.$store.state.siteAlert;
+    },
+    siteAlertModel: {
       get() {
-        return this.$store.state.siteAlert;
+        return this.siteAlert.model;
       },
       set(value) {
-        this.$store.commit("SET_SITE_ALERT", value);
+        this.$store.commit("SET_SITE_ALERT_MODEL", value);
       }
     }
   }

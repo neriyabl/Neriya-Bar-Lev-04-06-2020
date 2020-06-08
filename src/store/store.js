@@ -12,13 +12,21 @@ const store = new Vuex.Store({
     activeRequests: 0,
     loading: false,
     metric: true,
-    siteAlert: ""
+    siteAlert: {
+      model: false,
+      text: ""
+    }
   },
   mutations: {
     INCREASE_ACTIVE_REQUESTS: state => state.activeRequests++,
     DECREASE_ACTIVE_REQUESTS: state => state.activeRequests--,
     SET_LOADING: (state, loading) => (state.loading = loading),
-    SET_SITE_ALERT: (state, errorMessage) => (state.siteAlert = errorMessage)
+    SET_SITE_ALERT: (state, errorMessage) =>
+      (state.siteAlert = {
+        model: !!errorMessage,
+        text: errorMessage
+      }),
+    SET_SITE_ALERT_MODEL: (state, model) => (state.siteAlert.model = model)
   }
 });
 
